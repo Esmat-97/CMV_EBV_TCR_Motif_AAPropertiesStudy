@@ -78,8 +78,25 @@ enrichment = pd.DataFrame({
 import numpy as np
 enrichment["log2_enrichment"] = np.log2((enrichment["CMV"]+1e-9)/(enrichment["Human"]+1e-9))
 
+
+
 print(enrichment)
 
 
+
+enrichment = enrichment.sort_values("log2_enrichment", ascending=False)
+
+print("\n=== Motif Enrichment (CMV vs Human) ===")
+print(enrichment)
+
+# رسم barplot
+plt.figure(figsize=(8,5))
+sns.barplot(x=enrichment.index, y=enrichment["log2_enrichment"], palette="Set2")
+plt.axhline(0, color="black", linestyle="--")
+plt.ylabel("log2 enrichment (CMV vs Human)")
+plt.xlabel("Motif")
+plt.title("Physicochemical Enrichment of CDR3 Endings in CMV vs Human Baseline")
+plt.tight_layout()
+plt.show()
 
 
